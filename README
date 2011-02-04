@@ -1,1 +1,9 @@
 This plugin aims to improve privacy towards third parties who provide embedded media.
+
+What it currently does:
+YouTube provides a special embedding URL, youtube-nocookie.com, where they promise not to send any cookies to the viewer, unless they actively start playing the video.
+
+The plugin changes the Wordpress auto-embedding for YouTube, so it uses this special URL.
+
+Installation:
+Like any Wordpress plugin: put the folder in the folder and activate.
