@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Embedding Privacy
-Plugin URI: http://pixelistik.de
+Plugin Name: WP Embedding Privacy
+Plugin URI: https://github.com/pixelistik/WP-Embedding-Privacy
 Description: Switches the automatically generated embed code for YouTube to the cookieless domain they offer. This way, YouTube will only set a cookie if the user actively starts the video playback.
 Version: 0.1
 Author: Pixelistik
