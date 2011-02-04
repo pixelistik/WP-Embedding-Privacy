@@ -19,4 +19,3 @@ function switch_to_nocookie_youtube($html, $url, $attr) {
 }
 add_filter('embed_oembed_html', 'switch_to_nocookie_youtube', 10, 3);
 ?>
-
