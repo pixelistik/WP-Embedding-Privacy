@@ -10,12 +10,38 @@ License: GPL2
 */
 ?>
 <?php
-function switch_to_nocookie_youtube($html, $url, $attr) {
-     if ( strpos($html, "http://www.youtube.com" ) !== false) {
-          return str_replace("http://www.youtube.com","http://www.youtube-nocookie.com",$html);
-     } else {
-          return $html;
-     }
+/* Thank you, http://bjornery.com/web/hacking-oembed/ */
+$youtubeparser = new youtubeParse;
+class youtubeParse {
+	function parse($return, $data, $url)
+	{
+		if (true/*$data->type=='photo' /* && preg_match('flickr',$url) */ ) {
+			$pre = '<div id="putmein">
+					<a href="'.$url.'" id="trigger">
+						<img src="'.$data->thumbnail_url.'" />
+					</a>
+				</div>
+				<script>
+				code=\'
+			';
+			$post = '
+				\';
+				jQuery(document).ready(function() {
+					jQuery("#trigger").click(function(){
+						jQuery("#putmein").html(code);	
+						return false;
+					});
+				});
+				</script>
+			';
+			$return = $pre . $return . $post;
+		}
+		return $return;
+	}
+	function youtubeParse()
+	{
+		wp_enqueue_script('jquery');
+		add_filter('oembed_dataparse',array(&$this,'parse'),10,3);
+	}
 }
-add_filter('embed_oembed_html', 'switch_to_nocookie_youtube', 10, 3);
 ?>
