@@ -16,26 +16,15 @@ class youtubeParse {
 	function parse($return, $data, $url)
 	{
 		if (true/*$data->type=='photo' /* && preg_match('flickr',$url) */ ) {
-			$pre = '<div id="putmein">
+			$pre = '<div class="WP-embedding-privacy-container">
 					<a href="'.$url.'" id="trigger">
 						<img src="'.$data->thumbnail_url.'" />
 					</a>
+				<script type="text/plain">
+			';
+			$post = '</script>
 				</div>
-				<script>
-				code=\'
 			';
-			$post = '
-				\';
-				jQuery(document).ready(function() {
-					jQuery("#trigger").click(function(){
-						jQuery("#putmein").html(code);	
-						return false;
-					});
-				});
-				</script>
-			';
-			// Escape any single quotes in embedding code
-			$return=str_replace("'","\'",$return);
 			$return = $pre . $return . $post;
 		}
 		return $return;
@@ -43,6 +32,14 @@ class youtubeParse {
 	function youtubeParse()
 	{
 		wp_enqueue_script('jquery');
+		
+		wp_register_script(
+			'WP-embedding-privacy',
+			WP_PLUGIN_URL . '/WP-embedding-privacy/js/WP-embedding-privacy.js',
+			array('jquery')
+		);
+		wp_enqueue_script('WP-embedding-privacy');
+
 		add_filter('oembed_dataparse',array(&$this,'parse'),10,3);
 	}
 }
