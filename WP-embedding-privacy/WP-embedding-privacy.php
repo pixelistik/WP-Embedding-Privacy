@@ -15,7 +15,7 @@ $youtubeparser = new youtubeParse;
 class youtubeParse {
 	function parse($return, $data, $url)
 	{
-		if (true/*$data->type=='photo' /* && preg_match('flickr',$url) */ ) {
+		if ($data->type=='video') {
 			$pre = '<div class="WP-embedding-privacy-container">
 					<a href="'.$url.'" id="trigger">
 						<img src="'.$data->thumbnail_url.'" />
