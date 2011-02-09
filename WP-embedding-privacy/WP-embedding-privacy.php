@@ -34,6 +34,8 @@ class youtubeParse {
 				});
 				</script>
 			';
+			// Escape any single quotes in embedding code
+			$return=str_replace("'","\'",$return);
 			$return = $pre . $return . $post;
 		}
 		return $return;
