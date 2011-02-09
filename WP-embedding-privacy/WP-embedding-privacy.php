@@ -36,9 +36,17 @@ class youtubeParse {
 	function parse($return, $data, $url)
 	{
 		if ($data->type=='video') {
+			// Get generic width from Wordpress
+			$display_width=get_option('embed_size_w');
+			// But try to find real width of embedded object by looking at embed code
+			if (preg_match('/.*?width="(\\d+)"/is', $return, $matches))
+			{
+				$display_width=$matches[1];
+			}
+			
 			$pre='<div class="WP-embedding-privacy-container">
 					<a href="'.$url.'" id="trigger">
-						<img src="'.$data->thumbnail_url.'" />
+						<img src="'.$data->thumbnail_url.'" style="height: auto; width:'.$display_width.'px;"/>
 					</a>
 				<script type="text/plain">
 			';
