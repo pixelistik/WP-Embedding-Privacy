@@ -2,8 +2,8 @@
 /*
 Plugin Name: WP Embedding Privacy
 Plugin URI: https://github.com/pixelistik/WP-Embedding-Privacy
-Description: Switches the automatically generated embed code for YouTube to the cookieless domain they offer. This way, YouTube will only set a cookie if the user actively starts the video playback.
-Version: 0.1
+Description: Replaces embedded flash video player by its thumbnail. Re-inserts the embed code once the thumbnail is clicked. In a future version, the thumbnail will be cached locally, thus preventing a possibly undesired communication with a third party. 
+Version: 0.2
 Author: Pixelistik
 Author URI: http://pixelistik.de
 License: GPL2
