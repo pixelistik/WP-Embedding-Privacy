@@ -66,6 +66,11 @@ class youtubeParse {
 			{
 				$return=str_replace($matches[1],$matches[1].'?autoplay=1',$return);
 			}
+			// Add Vimeo autostart
+			if ($data->provider_name=='Vimeo' && preg_match('#(?<=vimeo\.com/video/)(.*)"#U', $return, $matches))
+			{
+				$return=str_replace($matches[1],$matches[1].'?autoplay=1',$return);
+			}
 			// Need to adjust for YouTube widescreen thumb?
 			// Calculate how much CSS will resize the thumb
 			$thumbnailUpscaleFactor=$display_width/$data->thumbnail_width;
