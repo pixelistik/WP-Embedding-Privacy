@@ -38,15 +38,25 @@ class youtubeParse {
 		if ($data->type=='video') {
 			// Get generic width from Wordpress
 			$display_width=get_option('embed_size_w');
+			$display_height='auto';
 			// But try to find real width of embedded object by looking at embed code
 			if (preg_match('/.*?width="(\\d+)"/is', $return, $matches))
 			{
-				$display_width=$matches[1];
+				$display_width=$matches[1].'px';
 			}
+			if (preg_match('/.*?height="(\\d+)"/is', $return, $matches))
+			{
+				$display_height=$matches[1].'px';
+			}
+			// Need to adjust for YouTube widescreen thumb?
+			// Calculate how much CSS will resize the thumb
+			$thumbnailUpscaleFactor=$display_width/$data->thumbnail_width;
+			$thumbnailDisplayHeight=$data->thumbnail_height * $thumbnailUpscaleFactor; 
+			$verticalOffset=($thumbnailDisplayHeight-$display_height)/2;
 			
 			$pre='<div class="WP-embedding-privacy-container">
-					<a href="'.$url.'" id="trigger">
-						<img src="'.$data->thumbnail_url.'" style="height: auto; width:'.$display_width.'px;"/>
+					<a href="'.$url.'" id="trigger" style="display: block; overflow: hidden; height: '.$display_height.'; width:'.$display_width.';">
+						<img src="'.$data->thumbnail_url.'" style="width: 100%; height: auto; margin-top: -'.$verticalOffset.'px;" />
 					</a>
 				<script type="text/plain">
 			';
