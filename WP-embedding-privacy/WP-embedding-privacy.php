@@ -42,6 +42,13 @@ class youtubeParse {
 	function parse($return, $data, $url)
 	{
 		if ($data->type=='video') {
+			// Cache the image
+			$upload_dir=wp_upload_dir();
+			$url=parse_url($data->thumbnail_url);
+			$destination_filename='embed-'.md5($data->thumbnail_url).basename($url['path']);
+			$destination_file_local=$upload_dir['path'].'/'.$destination_filename;
+			$destination_file_url=$upload_dir['url'].'/'.$destination_filename;
+			copy($data->thumbnail_url,$destination_file_local);
 			// Get generic width from Wordpress
 			$display_width=get_option('embed_size_w');
 			$display_height='auto';
@@ -62,7 +69,7 @@ class youtubeParse {
 			
 			$pre='<div class="WP-embedding-privacy-container">
 					<a href="'.$url.'" id="trigger" style=" height: '.$display_height.'; width:'.$display_width.';">
-						<img src="'.$data->thumbnail_url.'" style="margin-top: -'.$verticalOffset.'px;" />
+						<img src="'.$destination_file_url.'" style="margin-top: -'.$verticalOffset.'px;" />
 						<span>Play<br/>'.$data->provider_name.'</span>
 					</a>
 				<script type="text/plain">
