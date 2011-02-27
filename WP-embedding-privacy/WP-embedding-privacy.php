@@ -26,6 +26,12 @@ class youtubeParse {
 			array('jquery')
 		);
 		wp_enqueue_script('WP-embedding-privacy');
+		
+		wp_register_style(
+			'WP-embedding-privacy',
+			WP_PLUGIN_URL.'/WP-embedding-privacy/css/WP-embedding-privacy.css'
+		);
+		wp_enqueue_style('WP-embedding-privacy');
 
 		add_filter('oembed_dataparse',array(&$this,'parse'),10,3);
 	}
@@ -55,9 +61,9 @@ class youtubeParse {
 			$verticalOffset=($thumbnailDisplayHeight-$display_height)/2;
 			
 			$pre='<div class="WP-embedding-privacy-container">
-					<a href="'.$url.'" id="trigger" style="display: block; position: relative; overflow: hidden; height: '.$display_height.'; width:'.$display_width.';">
-						<img src="'.$data->thumbnail_url.'" style="width: 100%; height: auto; margin-top: -'.$verticalOffset.'px;" />
-						<span style="position: absolute; width: 64px; height: 32px; margin-top: -16px; margin-left: -32px; top: 50%; left: 50%; background: #eee; text-align: center">Play</span>
+					<a href="'.$url.'" id="trigger" style=" height: '.$display_height.'; width:'.$display_width.';">
+						<img src="'.$data->thumbnail_url.'" style="margin-top: -'.$verticalOffset.'px;" />
+						<span>Play</span>
 					</a>
 				<script type="text/plain">
 			';
