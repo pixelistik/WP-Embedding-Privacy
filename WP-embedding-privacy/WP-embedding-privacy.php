@@ -63,7 +63,7 @@ class youtubeParse {
 			$pre='<div class="WP-embedding-privacy-container">
 					<a href="'.$url.'" id="trigger" style=" height: '.$display_height.'; width:'.$display_width.';">
 						<img src="'.$data->thumbnail_url.'" style="margin-top: -'.$verticalOffset.'px;" />
-						<span>Play</span>
+						<span>Play<br/>'.$data->provider_name.'</span>
 					</a>
 				<script type="text/plain">
 			';
