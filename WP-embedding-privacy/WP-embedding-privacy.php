@@ -55,8 +55,9 @@ class youtubeParse {
 			$verticalOffset=($thumbnailDisplayHeight-$display_height)/2;
 			
 			$pre='<div class="WP-embedding-privacy-container">
-					<a href="'.$url.'" id="trigger" style="display: block; overflow: hidden; height: '.$display_height.'; width:'.$display_width.';">
+					<a href="'.$url.'" id="trigger" style="display: block; position: relative; overflow: hidden; height: '.$display_height.'; width:'.$display_width.';">
 						<img src="'.$data->thumbnail_url.'" style="width: 100%; height: auto; margin-top: -'.$verticalOffset.'px;" />
+						<span style="position: absolute; width: 64px; height: 32px; margin-top: -16px; margin-left: -32px; top: 50%; left: 50%; background: #eee; text-align: center">Play</span>
 					</a>
 				<script type="text/plain">
 			';
