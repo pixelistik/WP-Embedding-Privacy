@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP Embedding Privacy
 Plugin URI: https://github.com/pixelistik/WP-Embedding-Privacy
-Description: Whenever you use the Wordpress automatic embedding feature, the embed code is deactivated, so when a visitor load the page, no communication with the third party takes place. Instead, the embedded video is replaced by a locally cached thumbnail of the video. Once the user clicks the thumbnail, the embed code is activated and the embedded video loads as usual.
+Description: Whenever you use the Wordpress automatic embedding feature, the embed code is deactivated, so when a visitor loads the page, no communication with the third party takes place. Instead, the embedded video is replaced by a locally cached thumbnail of the video. Once the user clicks the thumbnail, the embed code is activated and the embedded video loads as usual.
 Version: 0.2
 Author: Pixelistik
 Author URI: http://pixelistik.de
