@@ -20,13 +20,14 @@
 	padding-top: 42px;
 	top: 50%; 
 	left: 50%; 
-	background-color: rgb(1,1,1);
-	background-color: rgba(1,1,1,0.7);
+	background: rgb(1,1,1);
+	background: rgba(1,1,1,0.7);
 	background-image: url(../img/play.png);
 	background-repeat: no-repeat;
 	background-position: 26px 10px;
 	text-align: center;
-	border-radius: 4px;
+	border: 1px solid #fff\9;
+	border-radius: 4px 4px 4px 4px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 }
