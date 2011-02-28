@@ -48,7 +48,9 @@ class youtubeParse {
 			$destination_filename='embed-'.md5($data->thumbnail_url).basename($url['path']);
 			$destination_file_local=$upload_dir['path'].'/'.$destination_filename;
 			$destination_file_url=$upload_dir['url'].'/'.$destination_filename;
-			copy($data->thumbnail_url,$destination_file_local);
+			if(!file_exists($destination_file_local)){
+				copy($data->thumbnail_url,$destination_file_local);
+			}
 			// Get generic width from Wordpress
 			$display_width=get_option('embed_size_w');
 			$display_height='auto';
