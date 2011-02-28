@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP Embedding Privacy
 Plugin URI: https://github.com/pixelistik/WP-Embedding-Privacy
-Description: Replaces embedded flash video player by its thumbnail. Re-inserts the embed code once the thumbnail is clicked. In a future version, the thumbnail will be cached locally, thus preventing a possibly undesired communication with a third party. 
+Description: Whenever you use the Wordpress automatic embedding feature, the embed code is deactivated, so when a visitor loads the page, no communication with the third party takes place. Instead, the embedded video is replaced by a locally cached thumbnail of the video. Once the user clicks the thumbnail, the embed code is activated and the embedded video loads as usual.
 Version: 0.2
 Author: Pixelistik
 Author URI: http://pixelistik.de
@@ -26,6 +26,12 @@ class youtubeParse {
 			array('jquery')
 		);
 		wp_enqueue_script('WP-embedding-privacy');
+		
+		wp_register_style(
+			'WP-embedding-privacy',
+			WP_PLUGIN_URL.'/WP-embedding-privacy/css/WP-embedding-privacy.css'
+		);
+		wp_enqueue_style('WP-embedding-privacy');
 
 		add_filter('oembed_dataparse',array(&$this,'parse'),10,3);
 	}
@@ -36,17 +42,46 @@ class youtubeParse {
 	function parse($return, $data, $url)
 	{
 		if ($data->type=='video') {
+			// Cache the image
+			$upload_dir=wp_upload_dir();
+			$temp_url=parse_url($data->thumbnail_url);
+			$destination_filename='embed-'.md5($data->thumbnail_url).basename($temp_url['path']);
+			$destination_file_local=$upload_dir['path'].'/'.$destination_filename;
+			$destination_file_url=$upload_dir['url'].'/'.$destination_filename;
+			if(!file_exists($destination_file_local)){
+				copy($data->thumbnail_url,$destination_file_local);
+			}
 			// Get generic width from Wordpress
 			$display_width=get_option('embed_size_w');
+			$display_height='auto';
 			// But try to find real width of embedded object by looking at embed code
 			if (preg_match('/.*?width="(\\d+)"/is', $return, $matches))
 			{
-				$display_width=$matches[1];
+				$display_width=$matches[1].'px';
 			}
-			
+			if (preg_match('/.*?height="(\\d+)"/is', $return, $matches))
+			{
+				$display_height=$matches[1].'px';
+			}
+			// Add YouTube autostart
+			if ($data->provider_name=='YouTube' && preg_match('#(?<=youtube\.com/e/)(.*)"#U', $return, $matches))
+			{
+				$return=str_replace($matches[1],$matches[1].'?autoplay=1',$return);
+			}
+			// Add Vimeo autostart
+			if ($data->provider_name=='Vimeo' && preg_match('#(?<=vimeo\.com/video/)(.*)"#U', $return, $matches))
+			{
+				$return=str_replace($matches[1],$matches[1].'?autoplay=1',$return);
+			}
+			// Need to adjust for YouTube widescreen thumb?
+			// Calculate how much CSS will resize the thumb
+			$thumbnailUpscaleFactor=$display_width/$data->thumbnail_width;
+			$thumbnailDisplayHeight=$data->thumbnail_height * $thumbnailUpscaleFactor; 
+			$verticalOffset=($thumbnailDisplayHeight-$display_height)/2;
 			$pre='<div class="WP-embedding-privacy-container">
-					<a href="'.$url.'" id="trigger">
-						<img src="'.$data->thumbnail_url.'" style="height: auto; width:'.$display_width.'px;"/>
+					<a href="'.$url.'" style=" height: '.$display_height.'; width:'.$display_width.';">
+						<img src="'.$destination_file_url.'" style="margin-top: -'.$verticalOffset.'px;" />
+						<span>'.$data->provider_name.'</span>
 					</a>
 				<script type="text/plain">
 			';

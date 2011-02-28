@@ -1,0 +1,38 @@
+#content .WP-embedding-privacy-container a{
+	display: block; 
+	position: relative; 
+	overflow: hidden;
+	text-decoration: none;
+	color: #fff;
+	font-size: 14px;
+	font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans serif;
+}
+#content .WP-embedding-privacy-container a img{
+	width: 100%; 
+	height: auto;	
+}
+#content .WP-embedding-privacy-container a span{
+	position: absolute; 
+	width: 80px; 
+	height: 28px; 
+	margin-top: -25px; 
+	margin-left: -40px;
+	padding-top: 42px;
+	top: 50%; 
+	left: 50%; 
+	background: rgb(1,1,1);
+	background: rgba(1,1,1,0.7);
+	background-image: url(../img/play.png);
+	background-repeat: no-repeat;
+	background-position: 26px 10px;
+	text-align: center;
+	border: 1px solid #fff\9;
+	border-radius: 4px 4px 4px 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+#content .WP-embedding-privacy-container a:hover span{
+	margin-top: -27px; 
+	margin-left: -42px;
+	color: orange;
+}

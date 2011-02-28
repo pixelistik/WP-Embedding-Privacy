@@ -1,9 +1,0 @@
-This plugin aims to improve privacy towards third parties who provide embedded media.
-
-What it currently does:
-Replaces embedded flash video player by its thumbnail. Re-inserts the embed code once the thumbnail is clicked. 
-
-In a future version, the thumbnail will be cached locally, thus preventing a possibly undesired communication with a third party.
-
-Installation:
-Like any Wordpress plugin: put the folder in the folder and activate.
