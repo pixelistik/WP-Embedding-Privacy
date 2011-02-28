@@ -80,7 +80,7 @@ class youtubeParse {
 			$verticalOffset=($thumbnailDisplayHeight-$display_height)/2;
 			
 			$pre='<div class="WP-embedding-privacy-container">
-					<a href="'.$url.'" id="trigger" style=" height: '.$display_height.'; width:'.$display_width.';">
+					<a href="'.$url.'" style=" height: '.$display_height.'; width:'.$display_width.';">
 						<img src="'.$destination_file_url.'" style="margin-top: -'.$verticalOffset.'px;" />
 						<span>'.$data->provider_name.'</span>
 					</a>
