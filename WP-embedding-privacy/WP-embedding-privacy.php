@@ -44,8 +44,8 @@ class youtubeParse {
 		if ($data->type=='video') {
 			// Cache the image
 			$upload_dir=wp_upload_dir();
-			$url=parse_url($data->thumbnail_url);
-			$destination_filename='embed-'.md5($data->thumbnail_url).basename($url['path']);
+			$temp_url=parse_url($data->thumbnail_url);
+			$destination_filename='embed-'.md5($data->thumbnail_url).basename($temp_url['path']);
 			$destination_file_local=$upload_dir['path'].'/'.$destination_filename;
 			$destination_file_url=$upload_dir['url'].'/'.$destination_filename;
 			if(!file_exists($destination_file_local)){
@@ -78,7 +78,6 @@ class youtubeParse {
 			$thumbnailUpscaleFactor=$display_width/$data->thumbnail_width;
 			$thumbnailDisplayHeight=$data->thumbnail_height * $thumbnailUpscaleFactor; 
 			$verticalOffset=($thumbnailDisplayHeight-$display_height)/2;
-			
 			$pre='<div class="WP-embedding-privacy-container">
 					<a href="'.$url.'" style=" height: '.$display_height.'; width:'.$display_width.';">
 						<img src="'.$destination_file_url.'" style="margin-top: -'.$verticalOffset.'px;" />
